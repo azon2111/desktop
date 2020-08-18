@@ -1,5 +1,6 @@
 Checks: '-*,
     bugprone-argument-comment,
+    bugprone-branch-clone,
     cppcoreguidelines-init-variables,
     modernize-avoid-bind,
     modernize-concat-nested-namespaces,

@@ -404,7 +404,7 @@ void OwncloudPropagator::start(const SyncFileItemVector &items,
             // this is an item in a directory which is going to be removed.
             auto *delDirJob = qobject_cast<PropagateDirectory *>(directoriesToRemove.first());
 
-            if (item->_instruction == CSYNC_INSTRUCTION_REMOVE) {
+            if (item->_instruction == CSYNC_INSTRUCTION_REMOVE) { // NOLINT
                 // already taken care of. (by the removal of the parent directory)
 
                 // increase the number of subjobs that would be there.

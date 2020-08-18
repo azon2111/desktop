@@ -188,7 +188,7 @@ static void _csync_merge_algorithm_visitor(csync_file_stat_t *cur, CSYNC * ctx) 
                 }();
                 auto curParent = our_tree->findFile(curParentPath);
 
-                if(!other) {
+                if(!other) { // NOLINT
                     // Stick with the NEW
                     return;
                 } else if (!other->e2eMangledName.isEmpty() || (curParent && curParent->isE2eEncrypted)) {

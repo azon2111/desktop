@@ -411,14 +411,15 @@ void ownCloudGui::slotUpdateProgress(const QString &folder, const ProgressInfo &
 {
     Q_UNUSED(folder);
 
+    // FIXME: Lots of messages computed for nothing in this method, needs revisiting
     if (progress.status() == ProgressInfo::Discovery) {
-        if (!progress._currentDiscoveredRemoteFolder.isEmpty()) {
-            //_actionStatus->setText(tr("Checking for changes in remote '%1'")
-                                       //.arg(progress._currentDiscoveredRemoteFolder));
-        } else if (!progress._currentDiscoveredLocalFolder.isEmpty()) {
-            //_actionStatus->setText(tr("Checking for changes in local '%1'")
-                                       //.arg(progress._currentDiscoveredLocalFolder));
-        }
+//        if (!progress._currentDiscoveredRemoteFolder.isEmpty()) {
+//            _actionStatus->setText(tr("Checking for changes in remote '%1'")
+//                                       .arg(progress._currentDiscoveredRemoteFolder));
+//        } else if (!progress._currentDiscoveredLocalFolder.isEmpty()) {
+//            _actionStatus->setText(tr("Checking for changes in local '%1'")
+//                                       .arg(progress._currentDiscoveredLocalFolder));
+//        }
     } else if (progress.status() == ProgressInfo::Done) {
         QTimer::singleShot(2000, this, &ownCloudGui::slotComputeOverallSyncStatus);
     }

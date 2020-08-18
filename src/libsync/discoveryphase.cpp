@@ -161,10 +161,12 @@ void DiscoveryJob::update_job_update_callback(bool local,
         // Don't wanna overload the UI
         if (!updateJob->_lastUpdateProgressCallbackCall.isValid()) {
             updateJob->_lastUpdateProgressCallbackCall.start(); // first call
-        } else if (updateJob->_lastUpdateProgressCallbackCall.elapsed() < 200) {
-            return;
         } else {
-            updateJob->_lastUpdateProgressCallbackCall.start();
+            if (updateJob->_lastUpdateProgressCallbackCall.elapsed() < 200) {
+                return;
+            } else {
+                updateJob->_lastUpdateProgressCallbackCall.start();
+            }
         }
 
         QByteArray pPath(dirUrl);
