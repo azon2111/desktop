@@ -243,8 +243,9 @@ public:
      * @return A reference to the token within the string
      */
     QStringRef stringRef() {
-        int begin = d->tokenBegin-d->begin;
-        int end = d->tokenEnd-d->tokenBegin;
+        // If those differences overflow an int we'd have a veeeeeery long string in memory
+        int begin = static_cast<int>(d->tokenBegin - d->begin);
+        int end = static_cast<int>(d->tokenEnd - d->tokenBegin);
         if (!d->returnQuotes && d->isQuote(*d->tokenBegin)) {
             begin++;
             end -= 2;
