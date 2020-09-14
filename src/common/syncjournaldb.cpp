@@ -745,6 +745,15 @@ bool SyncJournalDb::updateMetadataTableStructure()
         commitInternal("update database structure: add contentChecksum col for uploadinfo");
     }
 
+    if (true) {
+        SqlQuery query(_db);
+        query.prepare("CREATE INDEX IF NOT EXISTS metadata_e2e_id ON metadata(e2eMangledName);");
+        if (!query.exec()) {
+            sqlFail("updateMetadataTableStructure: create index e2eMangledName", query);
+            re = false;
+        }
+        commitInternal("update database structure: add e2eMangledName index");
+    }
 
     return re;
 }
@@ -1447,7 +1456,7 @@ SyncJournalDb::UploadInfo SyncJournalDb::getUploadInfo(const QString &file)
         if (_getUploadInfoQuery.next()) {
             bool ok = true;
             res._chunk = _getUploadInfoQuery.intValue(0);
-            res._transferid = _getUploadInfoQuery.intValue(1);
+            res._transferid = _getUploadInfoQuery.int64Value(1);
             res._errorCount = _getUploadInfoQuery.intValue(2);
             res._size = _getUploadInfoQuery.int64Value(3);
             res._modtime = _getUploadInfoQuery.int64Value(4);

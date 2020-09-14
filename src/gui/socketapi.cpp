@@ -105,13 +105,13 @@ public:
 
     void storeHash(uint hash)
     {
-        hashBits.setBit((hash & 0xFFFF) % NumBits);
-        hashBits.setBit((hash >> 16) % NumBits);
+        hashBits.setBit((hash & 0xFFFF) % NumBits); // NOLINT it's uint all the way and the modulo puts us back in the 0..1023 range
+        hashBits.setBit((hash >> 16) % NumBits); // NOLINT
     }
     bool isHashMaybeStored(uint hash) const
     {
-        return hashBits.testBit((hash & 0xFFFF) % NumBits)
-            && hashBits.testBit((hash >> 16) % NumBits);
+        return hashBits.testBit((hash & 0xFFFF) % NumBits) // NOLINT
+            && hashBits.testBit((hash >> 16) % NumBits); // NOLINT
     }
 
 private:
@@ -469,6 +469,7 @@ void SocketApi::command_SHARE_MENU_TITLE(const QString &, SocketListener *listen
 
 void SocketApi::command_EDIT(const QString &localFile, SocketListener *listener)
 {
+    Q_UNUSED(listener)
     auto fileData = FileData::get(localFile);
     if (!fileData.folder) {
         qCWarning(lcSocketApi) << "Unknown path" << localFile;

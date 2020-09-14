@@ -1361,6 +1361,11 @@ void FolderMetadata::setupExistingMetadata(const QByteArray& metadata)
         file.mimetype = decryptedFileObj["mimetype"].toString().toLocal8Bit();
         file.fileVersion = decryptedFileObj["version"].toInt();
 
+        // In case we wrongly stored "inode/directory" we try to recover from it
+        if (file.mimetype == QByteArrayLiteral("inode/directory")) {
+            file.mimetype = QByteArrayLiteral("httpd/unix-directory");
+        }
+
         _files.push_back(file);
     }
 }
@@ -1656,7 +1661,7 @@ bool EncryptionHelper::fileDecryption(const QByteArray &key, const QByteArray& i
 
     while(input->pos() < size) {
 
-        int toRead = size - input->pos();
+        auto toRead = size - input->pos();
         if (toRead > 1024) {
             toRead = 1024;
         }
