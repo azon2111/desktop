@@ -36,6 +36,9 @@
 #undef Mirall
 #endif
 
+// OliveDrive fixed server address
+#define APPLICATION_SERVER_URL  "https://office.oliveitky.com"
+
 namespace OCC {
 
 Theme *Theme::_instance = nullptr;
